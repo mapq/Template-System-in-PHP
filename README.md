@@ -6,7 +6,5 @@ I wrote it to explain in class how template systems work and to demonstrate why 
 
 There are still a few things left to be implemented.
 
-Manuel A. Perez-Quinones
-Computer Science
-Virginia Tech
-2012
+Manuel A. Perez-Quinones  
+Computer Science, Virginia Tech, 2012
