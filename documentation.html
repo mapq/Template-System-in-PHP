@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+    color: #737373;
+    margin: 10px 13px 10px 13px;
+}
+table {
+	margin: 10px 0 15px 0;
+	border-collapse: collapse;
+}
+td,th {	
+	border: 1px solid #ddd;
+	padding: 3px 10px;
+}
+th {
+	padding: 5px 10px;	
+}
+
+a {
+    color: #0069d6;
+}
+a:hover {
+    color: #0050a3;
+    text-decoration: none;
+}
+a img {
+    border: none;
+}
+p {
+    margin-bottom: 9px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #404040;
+    line-height: 36px;
+}
+h1 {
+    margin-bottom: 18px;
+    font-size: 30px;
+}
+h2 {
+    font-size: 24px;
+}
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
+h5 {
+    font-size: 14px;
+}
+h6 {
+    font-size: 13px;
+}
+hr {
+    margin: 0 0 19px;
+    border: 0;
+    border-bottom: 1px solid #ccc;
+}
+blockquote {
+    padding: 13px 13px 21px 15px;
+    margin-bottom: 18px;
+    font-family:georgia,serif;
+    font-style: italic;
+}
+blockquote:before {
+    content:"\201C";
+    font-size:40px;
+    margin-left:-10px;
+    font-family:georgia,serif;
+    color:#eee;
+}
+blockquote p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 18px;
+    margin-bottom: 0;
+    font-style: italic;
+}
+code, pre {
+    font-family: Monaco, Andale Mono, Courier New, monospace;
+}
+code {
+    background-color: #fee9cc;
+    color: rgba(0, 0, 0, 0.75);
+    padding: 1px 3px;
+    font-size: 12px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+pre {
+    display: block;
+    padding: 14px;
+    margin: 0 0 18px;
+    line-height: 16px;
+    font-size: 11px;
+    border: 1px solid #d9d9d9;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+pre code {
+    background-color: #fff;
+    color:#737373;
+    font-size: 11px;
+    padding: 0;
+}
+@media screen and (min-width: 914px) {
+    body {
+        width: 854px;
+        margin:10px auto;
+    }
+}
+@media print {
+	body,code,pre code,h1,h2,h3,h4,h5,h6 {
+		color: black;
+	}
+	table, pre {
+		page-break-inside: avoid;
+	}
+}
+</style>
+<title>Simple Template System in PHP</title>
+</head>
+<body>
+<h1>Simple Template System in PHP</h1>
+
+<p><strong>Manuel A. Perez-Quinones, Computer Science, VT, 2012</strong></p>
+
+<p>The tiny template is a very simple template language implemented in PHP to be used for small projects and classroom instruction.  The language supports conditionals, repetitions, and calls to functions embedded in HTML.</p>
+
+<h2>Variables</h2>
+
+<p>Variables can be placed anywhere in the HTML by using the name of a variable and encapsulating it in curly braces.  {name} for example, will replace the value of the name variable for its value.</p>
+
+<h2>Passing Variables</h2>
+
+<p>Variables are passed in an associate array. The index (key) is the name of the variable and the value associated with that key will be used in the substitution.  A simple example follows:</p>
+
+<p>Consider an HTML file,  ex1.tmpl, that includes the following:</p>
+
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>To use this template, we prepare an array with the following values.</p>
+
+<pre><code>$symbols = array('name' =&gt; "Joe");
+</code></pre>
+
+<p>Then we call the generate_template routine as shown below.</p>
+
+<pre><code>require_once("template.php");
+$page = gen_template("ex1.tmpl", $symbols);
+echo $page
+</code></pre>
+
+<h2>Commands</h2>
+
+<p>The commands for the template are embedded in &lt;% symbols %> and include if and repeat. The if statement, seen below, allows a condition to be expressed. The condition is a variable passed to the system as shown above.  If that variable evaluates to True, then the text for the &ldquo;then-block&rdquo; will be included in the output.  If the variable evaluates to False, then the &ldquo;else-block&rdquo; will be included in the output.  Note that the else block is option.</p>
+
+<pre><code>&lt;% if {condition} %&gt;
+    html
+&lt;% else %&gt;
+    html
+&lt;% end %&gt;
+</code></pre>
+
+<p>The repetition statement, shown below, is similar to the if in that it uses a variable to contribute the execution.  In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.</p>
+
+<pre><code>&lt;% repeat {collection} %&gt;
+    html
+&lt;% end %&gt;
+</code></pre>
+
+<p>Lets consider a more complex example to see how the repeat works. Consider an HTML file,  ex2.tmpl, that includes the following:</p>
+
+<pre><code>&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Welcome&lt;/h1&gt;
+&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;
+&lt;ul&gt;
+&lt;% repeat {phones} %&gt;
+    &lt;li&gt;my {type} number is {number}&lt;/li&gt;
+&lt;% end %&gt;
+&lt;/ul&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<p>Using collections in repeat are a bit tricky.  At the top level of your variables, you want to have the symbol used in the repeat line.  In this example it is {phones}.</p>
+
+<pre><code>$symbols = array('name' =&gt; "Joe",
+    'phones' =&gt; array( .. ));
+</code></pre>
+
+<p>The content of the collection, should be arrays themselves using the symbols mentioned in the repeated part of the body of the repeat statement. In this example, each element of the &lsquo;phones&rsquo; collection should have &lsquo;type&rsquo; and &lsquo;number&rsquo;.  Then completing the example, we have:</p>
+
+<pre><code>$symbols = array('name' =&gt; "Joe",
+    'phones' =&gt; array( 
+        array('type' =&gt; "home", 'number' =&gt; "555-1234"),
+        array('type' =&gt; "cellular", 'number' =&gt; "555-2345")
+        ));
+</code></pre>
+
+<h3>Additional variables</h3>
+
+<p>The repeat statement also supports additional variables that can be used in the loop body.</p>
+
+<ul>
+<li>&lsquo;loopfirst&rsquo; evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop.</li>
+<li><p>&lsquo;looplast&rsquo; is similar to &lsquo;loopfirst&rsquo; but evaluates to True only on the last iteration through the loop.</p></li>
+<li><p>&lsquo;loopcount&rsquo; contains the index of the loop counter</p></li>
+<li>&lsquo;loopodd&rsquo; evaluates to true when &lsquo;loopcount&rsquo; is an odd number</li>
+<li>&lsquo;loopeven&rsquo; evaluates to true when &lsquo;loopcount&rsquo; is an even number</li>
+</ul>
+
+
+<p>With these, we could do a more complex example as shown below:</p>
+
+<pre><code>&lt;% repeat {phones} %&gt;
+    &lt;% if {loopfirst} %&gt;
+        &lt;ul&gt;
+    &lt;% end %&gt;
+    &lt;li&gt;my {type} number is {number}&lt;/li&gt;
+    &lt;% if {looplast} %&gt;
+        &lt;/ul&gt;
+    &lt;% end %&gt;
+&lt;% end %&gt;
+</code></pre>
+
+<p><em>the end</em></p>
+</body>
+</html>
