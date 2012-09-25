@@ -1,5 +1,5 @@
 <?php
-// ex1.php
+// ex2.php
 require_once("template.php");
 $symbols = array('name' => "Joe",
 	'phones' => array( 

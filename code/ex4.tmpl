@@ -1,0 +1,18 @@
+<html>
+<body>
+<h1>Phone Directory</h1>
+<dl>
+<% repeat {people} %>
+	<dt>Name: {name}</dt>
+	<% repeat {phones} %>
+		<% if {loopfirst} %>
+			<dd>
+		<% end %>
+		{type} number is {number}<br>
+		<% if {looplast} %>
+			</dd>
+		<% end %>
+	<% end %>
+<% end %>
+</body>
+</html>

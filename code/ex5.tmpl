@@ -1,0 +1,17 @@
+<html>
+<body>
+<h1>Phones</h1>
+<dl><% repeat {phones} %>
+	<% if {loopfirst} %>
+		<dt>Name: {name}</dt><dd>
+	<% end %>
+	{type} number is {number}<br>
+	<% if {looplast} %>
+	</dd>
+	<% end %>
+<% end %>
+<% repeat {keys} %>
+	<p>Keys in array {loopcount}
+<% end %>
+</body>
+</html>
