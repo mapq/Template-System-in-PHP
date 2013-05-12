@@ -1,0 +1,26 @@
+<% data {csv} %>
+id,person,score
+joe,Joe Smith,100
+mary,Mary James, 101
+<% end %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Grades</title>
+    <meta name="author" content="MAPQ">
+  </head>
+  <body>
+	<h1>Grades</h1>
+	<p>Professor {last}.</p>
+   <table>
+		<% repeat {csv} %>
+			<% if {loopfirst} %>
+         	<tr><th>PID</th><th>Person</th><th>Pts</th></tr>
+			<% end %>
+         <tr><td>{id}</td><td>{person}</td><td>{score}</td></tr>
+		<% end %>
+   </table>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+	"title":"Ex7",
+	"name":"manuel",
+	"looping": [
+		{
+			"name":"var1",
+			"value":10
+		},
+		{
+			"name":"var2",
+			"value":20
+		}
+	]
+}

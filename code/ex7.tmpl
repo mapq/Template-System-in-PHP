@@ -1,0 +1,34 @@
+<% data {json} %>
+{
+	"title":"Ex7",
+	"name":"manuel",
+	"looping": [
+		{
+			"name":"var1",
+			"value":10
+		},
+		{
+			"name":"var2",
+			"value":20
+		}
+	]
+}
+<% end %>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{title}</title>
+    <meta name="author" content="MAPQ">
+  </head>
+  <body>
+	<h1>{title}</h1>
+	<p>My name is {last}, {name}.</p>
+   <ul>
+		<% repeat {looping} %>
+         <li>{name} = {value}</li>
+		<% end %>
+   </ul>
+  </body>
+</html>
