@@ -2,7 +2,18 @@
 <html>
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 <style>
+/* lists inside of lists are how I provide comments */
+.comments {
+	background-color: beige;
+	color: maroon;
+	border: 1px solid #ddd;
+}
+img {
+	vertical-align:text-top;
+    float: left; 
+}
 h1,
 h2,
 h3,
@@ -18,7 +29,7 @@ body {
     font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
     font-size: 13px;
     line-height: 18px;
-    color: #737373;
+    color: #000;
     margin: 10px 13px 10px 13px;
 }
 table {
@@ -134,20 +145,20 @@ pre code {
     }
 }
 @media print {
-	body,code,pre code,h1,h2,h3,h4,h5,h6 {
-		color: black;
-	}
 	table, pre {
 		page-break-inside: avoid;
 	}
 }
 </style>
 <title>Simple Template System in PHP</title>
+
 </head>
 <body>
 <h1>Simple Template System in PHP</h1>
 
 <p><strong>Manuel A. Perez-Quinones, Computer Science, VT, 2012</strong></p>
+
+<p>Updated: May 12, 2013</p>
 
 <p>The tiny template is a very simple template language implemented in PHP to be used for small projects and classroom instruction.  The language supports conditionals, repetitions, and calls to functions embedded in HTML.</p>
 
@@ -181,36 +192,48 @@ $page = gen_template("ex1.tmpl", $symbols);
 echo $page
 </code></pre>
 
-<h2>Commands</h2>
+<h2>Directives</h2>
 
-<p>The commands for the template are embedded in &lt;% symbols %> and include if and repeat. The if statement, seen below, allows a condition to be expressed. The condition is a variable passed to the system as shown above.  If that variable evaluates to True, then the text for the &ldquo;then-block&rdquo; will be included in the output.  If the variable evaluates to False, then the &ldquo;else-block&rdquo; will be included in the output.  Note that the else block is option.</p>
+<p>The directives for the template are embedded in &lt;% symbols %> and include if and repeat. The if statement, seen below, allows a condition to be expressed. The condition is a variable passed to the system as shown above.  If that variable evaluates to True, then the text for the "then-block" will be included in the output.  If the variable evaluates to False, then the "else-block" will be included in the output.  Note that the else block is option.</p>
 
 <pre><code>&lt;% if {condition} %&gt;
     html
 &lt;% else %&gt;
-    html
+    more html
 &lt;% end %&gt;
 </code></pre>
 
-<p>The repetition statement, shown below, is similar to the if in that it uses a variable to contribute the execution.  In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.</p>
+<p>The repetition directive, shown below, is similar to the if in that it uses a variable to contribute the execution.  In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.</p>
 
 <pre><code>&lt;% repeat {collection} %&gt;
+
     html
+
 &lt;% end %&gt;
 </code></pre>
 
-<p>Lets consider a more complex example to see how the repeat works. Consider an HTML file,  ex2.tmpl, that includes the following:</p>
+<p>Lets consider a more complex example to see how repeat works. Consider an HTML file,  ex2.tmpl, that includes the following:</p>
 
 <pre><code>&lt;html&gt;
+
 &lt;body&gt;
+
 &lt;h1&gt;Welcome&lt;/h1&gt;
+
 &lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;
+
 &lt;ul&gt;
+
 &lt;% repeat {phones} %&gt;
+
     &lt;li&gt;my {type} number is {number}&lt;/li&gt;
+
 &lt;% end %&gt;
+
 &lt;/ul&gt;
+
 &lt;/body&gt;
+
 &lt;/html&gt;
 </code></pre>
 
@@ -220,10 +243,10 @@ echo $page
     'phones' =&gt; array( .. ));
 </code></pre>
 
-<p>The content of the collection, should be arrays themselves using the symbols mentioned in the repeated part of the body of the repeat statement. In this example, each element of the &lsquo;phones&rsquo; collection should have &lsquo;type&rsquo; and &lsquo;number&rsquo;.  Then completing the example, we have:</p>
+<p>The content of the collection, should be arrays themselves using the symbols mentioned in the repeated part of the body of the repeat statement. In this example, each element of the 'phones' collection should have 'type' and 'number'.  Then completing the example, we have:</p>
 
 <pre><code>$symbols = array('name' =&gt; "Joe",
-    'phones' =&gt; array( 
+    'phones' =&gt; array(
         array('type' =&gt; "home", 'number' =&gt; "555-1234"),
         array('type' =&gt; "cellular", 'number' =&gt; "555-2345")
         ));
@@ -234,26 +257,62 @@ echo $page
 <p>The repeat statement also supports additional variables that can be used in the loop body.</p>
 
 <ul>
-<li>&lsquo;loopfirst&rsquo; evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop.</li>
-<li><p>&lsquo;looplast&rsquo; is similar to &lsquo;loopfirst&rsquo; but evaluates to True only on the last iteration through the loop.</p></li>
-<li><p>&lsquo;loopcount&rsquo; contains the index of the loop counter</p></li>
-<li>&lsquo;loopodd&rsquo; evaluates to true when &lsquo;loopcount&rsquo; is an odd number</li>
-<li>&lsquo;loopeven&rsquo; evaluates to true when &lsquo;loopcount&rsquo; is an even number</li>
+<li><p>'loopfirst' evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop.</p></li>
+<li><p>'looplast' is similar to 'loopfirst' but evaluates to True only on the last iteration through the loop.</p></li>
+<li><p>'loopcount' contains the index of the loop counter</p></li>
+<li><p>'loopodd' evaluates to true when 'loopcount' is an odd number</p></li>
+<li><p>'loopeven' evaluates to true when 'loopcount' is an even number</p></li>
 </ul>
 
 
 <p>With these, we could do a more complex example as shown below:</p>
 
 <pre><code>&lt;% repeat {phones} %&gt;
+
     &lt;% if {loopfirst} %&gt;
+
         &lt;ul&gt;
+
     &lt;% end %&gt;
+
     &lt;li&gt;my {type} number is {number}&lt;/li&gt;
+
     &lt;% if {looplast} %&gt;
+
         &lt;/ul&gt;
+
     &lt;% end %&gt;
+
 &lt;% end %&gt;
 </code></pre>
+
+<h2>Future changes (these have been implemented, better doc coming soon)</h2>
+
+<ul>
+<li><p>add calling a function so that it returns HTML directly</p></li>
+<li><p>The template system should support an all-in-one file representation.</p>
+
+<pre><code>  &lt;% data {json | xml | csv} %&gt;
+  _data goes here_
+  &lt;% end %&gt;
+</code></pre></li>
+<li><p>how is the data from statement above mixed with other data?</p></li>
+<li><p>add special case to repeat to support a csv array with the first row having the field names and the individual rows not being in an associative array.</p>
+
+<pre><code>  &lt;% repeat {} %&gt;
+  &lt;% end %&gt;
+</code></pre></li>
+<li><p>add support to template.php to take the file name as both command line argument (argv) and CGI.</p></li>
+</ul>
+
+
+<h3>To be done</h3>
+
+<ul>
+<li><p>add support for file inclusion</p></li>
+<li><p>add calling a function so that it returns data that is integrated with the other data.</p></li>
+</ul>
+
 
 <p><em>the end</em></p>
 </body>
