@@ -1,0 +1,7 @@
+{
+	"name": "Joe",
+	"phones": [
+		{"type":"home", "number":"555-1234"},
+		{"type":"cellular", "number": "555-2345"}
+	]
+}

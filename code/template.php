@@ -1,11 +1,11 @@
-#!/usr/bin/php -f
 <?php
 // template.php
 // manuel a perez-quinones
 // computer science @ virginia tech
-// 2012
+// 2012-2013
 //
-// full implementation of a template language for HTML
+// full implementation of a template language for HTML in PHP
+// https://github.com/mapq/Template-System-in-PHP
 // Notes
 
 define("TEXT_STMT", 1);
@@ -37,6 +37,102 @@ function debug_print($var)
 function streq($a, $b)
 {
 	return strcmp($a, $b) == 0;
+}
+
+// ---------------------------------------------------------------------------
+function object2array($object)
+{
+	$r = null;
+	
+	if (is_array($object)) {
+		foreach ($object as $key => $value)
+			$r[$key] = object2array($value);
+	}
+	else {	// not an array
+		//First, process the object instance variables
+		if (gettype($object) != "string") {
+			$var = get_object_vars($object);			// error message here, a warning... fix
+			if ($var) {		// if it has object vars, do them
+				foreach ($var as $key => $value) {
+					$r[$key] = object2array($value);
+				}
+			}
+		}
+
+		// Next, process the XML attributes
+		if ($object instanceof SimpleXMLElement) {
+			// if it is and XML element and has properties, do them
+			foreach($object->attributes() as $name => $value) {
+				$r[$name] = $value."";		// force to string
+			}
+			
+			// if at this stage we have not processed anything
+			// (i.e. r == null), then we have a <![DATA >
+			if ($r == null)
+				$r = $object."";
+		}
+		
+		else {
+			return $object;
+		}
+	}
+	return $r;
+}
+
+// ---------------------------------------------------------------------------
+function gen_template_from_json($page, $json)
+{
+	if (file_exists($json)) {
+		$c = file_get_contents($json);
+		$data = json_decode($c, true);
+		return gen_template($page, $data);
+	}
+	else
+		return false;
+}
+
+// ---------------------------------------------------------------------------
+function gen_template_from_csv($page, $csv)
+{
+	if (file_exists($csv)) {
+		if (($handle = fopen($csv, "r")) !== FALSE) {
+			$head = fgetcsv($handle, 1000, ",");
+			$d = array();
+			while (($line = fgetcsv($handle, 1000, ",")) !== FALSE) {
+				$num = count($line);
+				$row = array();
+				for ($c=0; $c < $num; $c++) {
+					$row[$head[$c]] = $line[$c];
+				}
+				$d[] = $row;
+			}
+			$data['csv'] = $d;
+			fclose($handle);
+			return gen_template($page, $data);
+		}
+		else
+			return false;
+	}
+	else
+		return false;
+}
+
+// ---------------------------------------------------------------------------
+function gen_template_from_xml($page, $xmlfile)
+{
+	if (file_exists($xmlfile)) {
+		$x = file_get_contents($xmlfile);
+		$xml = new SimpleXMLElement($x);
+		// Convert XML to associative array
+		$data = array();
+		$arraydata = object2array($xml);
+		foreach ($arraydata as $key => $val) {
+			$data[$key] = $val;
+		}
+		return gen_template($page, $data);
+	}
+	else
+		return false;
 }
 
 // ---------------------------------------------------------------------------
@@ -199,7 +295,20 @@ function evaluate_tmpl($parsed, $variables)
 				}
 			}
 			else if ($parsed[$i]['type'] == 'xml') {
-				$output .= "<!--- XML not implemented -->";
+				$xmldata = $parsed[$i]['data'][0]['content'];
+				$xml = new SimpleXMLElement($xmldata);
+				// Convert XML to associative array
+				$arraydata = object2array($xml);
+				// print_r ($arraydata);
+				
+				// The semantics of this section is that the environment
+				// (variables) must be extended so that it is used in
+				// any following recursive call.. the search patterns
+				// and replacements are computed in the TEXT_STMT
+				
+				foreach ($arraydata as $key => $val) {
+					$variables[$key] = $val;
+				}
 			}
 			else if ($parsed[$i]['type'] == 'csv') {
 				$csvdata = trim($parsed[$i]['data'][0]['content']);
@@ -257,49 +366,5 @@ function evaluate_tmpl($parsed, $variables)
 	return $output;	// return empty array
 }
 
-
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-
-// To call it...
-if (defined('STDIN') ) {
-	// this code will run from the command line for testing purposes
-	// it runs by taking either a file name without extension or
-	// a template file name followed by many files of data
-	if ($argc == 2) {
-		// one file only
-		$template = "$argv[1].tmpl";
-		if (file_exists("{$argv[1]}.json")) {
-			$c = file_get_contents("{$argv[1]}.json");
-			$data = json_decode($c, true);
-		}
-		else if (file_exists("{$argv[1]}.csv")) {
-			$file = "{$argv[1]}.csv";
-			if (($handle = fopen($file, "r")) !== FALSE) {
-				$head = fgetcsv($handle, 1000, ",");
-				$d = array();
-				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-					$num = count($data);
-					$row = array();
-					for ($c=0; $c < $num; $c++) {
-						$row[$head[$c]] = $data[$c];
-					}
-					$d[] = $row;
-				}
-				$data['csv'] = $d;
-				fclose($handle);
-			}
-		}
-		else {
-			$data = array();
-			// echo "Neither {$argv[1]}.json nor {$argv[1]}.csv exist.\n";
-			// exit();
-		}
-		echo gen_template($template, $data);
-	}
-	else if ($argc == 3) {
-		$template = "$argv[1].tmpl";
-	}
-}
-
+// the end
 ?>
