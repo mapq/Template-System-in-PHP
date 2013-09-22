@@ -2,6 +2,7 @@
 // ex5.php
 // Example using PHP's keys
 // Consider a single dimention array as we had in Ex2.php
+require_once("../template.php");
 
 function getURL2CSS()
 {
@@ -11,7 +12,6 @@ function getURL2Javascript()
 {
 	return "javascript/";
 }
-require_once("template.php");
 echo gen_template("ex6.tmpl", 	array(
 		'SemesterYear' => "Spring 2013",
 		'CourseName' => "Usability Engineering",

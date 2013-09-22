@@ -1,6 +1,6 @@
 <?php
 // ex2.php
-require_once("template.php");
+require_once("../template.php");
 $symbols = array('name' => "Joe",
 	'phones' => array( 
 		array('type' => "home", 'number' => "555-1234"),

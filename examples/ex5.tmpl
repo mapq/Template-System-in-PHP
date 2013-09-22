@@ -1,0 +1,13 @@
+<!-- ex5.tmpl -->
+<html>
+<% call pageheader %>
+<body>
+<h1>Phones</h1>
+<dl>
+<dt>Name: {name}</dt>
+<dd><% repeat {phones} %>
+	{type} number is {number}<br>
+<% end %></dd>
+</dl>
+</body>
+</html>

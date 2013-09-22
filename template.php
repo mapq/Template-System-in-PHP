@@ -16,6 +16,7 @@ define("DATA_STMT", 5);
 define("JSON_DATA", 6);
 define("XML_DATA", 7);
 define("CSV_DATA", 8);
+define("INCLUDE_STMT", 9);
 
 // ---------------------------------------------------------------------------
 function startsWith($string, $prefix) 
@@ -139,11 +140,14 @@ function gen_template_from_xml($page, $xmlfile)
 function gen_template($page, $variables)
 {
 
+	if (!file_exists($page))
+		return false;
+
 	// Read external file
 	$content = file_get_contents($page);
 
-	// Split the file by <cond: ... </cond> blocks
-	$tokens = preg_split("/(\<\%[ ]*([a-zA-Z]+)[ ]*\{?([a-zA-Z]+)?\}?[ ]*\%\>)/", 
+	// Split the file by <% ... %> blocks
+	$tokens = preg_split("/(\<\%[ ]*([a-zA-Z0-9]+)[ ]*\{?([a-zA-Z0-9]+)?\}?[ ]*\%\>)/", 
 		$content, 0, PREG_SPLIT_DELIM_CAPTURE);
 
 	// Now, lets parse the string chunks...
@@ -158,8 +162,8 @@ function gen_template($page, $variables)
 
 // ---------------------------------------------------------------------------
 /*
-Parsing the file: Five types of nodes, text, if, repeat, call, data
-	array('node'=>[text|if|repeat], stuff)
+Parsing the file: Several types of nodes, text, if, repeat, call, data
+	array('node'=>[text|if|repeat|include|call], stuff)
 		text:	 stuff is the text
 		if:	 array('cond' => "{condition}",
 						'then' => node,
@@ -167,6 +171,7 @@ Parsing the file: Five types of nodes, text, if, repeat, call, data
 		repeat: array('collection' => "{collection}",
 					'block' => node)
 		call: ...
+		include: filename
 		data: array('type' => {json | xml | csv}, 'content'=>text)
 */
 
@@ -205,6 +210,11 @@ function parse_tmpl($stream, &$i, $level)
 			else if (startsWith($type, "call")) {
 				$fname = $stream[$i++];			// {functionname}
 				$node = array('node'=>CALL_STMT, 'fname'=>$fname);
+				$output[] = $node;
+			}
+			else if (startsWith($type, "include")) {
+				$fname = $stream[$i++];			// {filename}
+				$node = array('node'=>INCLUDE_STMT, 'fname'=>$fname);
 				$output[] = $node;
 			}
 			else if (startsWith($type, "data")) {
@@ -276,6 +286,13 @@ function evaluate_tmpl($parsed, $variables)
 		else if ($parsed[$i]['node'] == CALL_STMT) {
 			$functionName = $parsed[$i]['fname'];
 			$output .= call_user_func($functionName, $variables);
+		}
+
+		else if ($parsed[$i]['node'] == INCLUDE_STMT) {
+			$fileName = $parsed[$i]['fname'];
+			// generate the included file using the current set of variables...
+			// and concatenate the output into the output here
+			$output .= gen_template($fileName, $variables);
 		}
 
 		else if ($parsed[$i]['node'] == DATA_STMT) {
