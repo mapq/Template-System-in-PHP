@@ -147,7 +147,7 @@ function gen_template($page, $variables)
 	$content = file_get_contents($page);
 
 	// Split the file by <% ... %> blocks
-	$tokens = preg_split("/(\<\%[ \t]*([a-zA-Z]+)[ \t]*\{?([a-zA-Z0-9\.\-]+)?\}?[ \t]*\%\>)/", 
+	$tokens = preg_split("|(\<\%[ \t]*([a-zA-Z]+)[ \t]*\{?([a-zA-Z0-9\/\.\-]+)?\}?[ \t]*\%\>)|", 
 		$content, 0, PREG_SPLIT_DELIM_CAPTURE);
 
 	// Now, lets parse the string chunks...
