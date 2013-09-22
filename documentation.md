@@ -116,6 +116,8 @@ The include directive works like other include statements in programming languag
 
 	<% inlcude ex1.tmpl %>
 
+For now, the include directives do not work when combined with the data directive. That is, you cannot include a file with a data directive.  This will be fixed in a future update (examples ex8b and ex8c do not work correctly.)
+
 ### Call directive
 
 The call directive allows calling a PHP function from the template expansion. The function must be defined at the time of the expansion and it can be a PHP function or a user defined function.  The variables passed to the template expansion are passed back to the function being called. The example below, shows how this works.  The return value from the function will be incorporated directly in place of where the call took place.

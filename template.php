@@ -147,7 +147,7 @@ function gen_template($page, $variables)
 	$content = file_get_contents($page);
 
 	// Split the file by <% ... %> blocks
-	$tokens = preg_split("/(\<\%[ ]*([a-zA-Z0-9]+)[ ]*\{?([a-zA-Z0-9]+)?\}?[ ]*\%\>)/", 
+	$tokens = preg_split("/(\<\%[ \t]*([a-zA-Z]+)[ \t]*\{?([a-zA-Z0-9\.\-]+)?\}?[ \t]*\%\>)/", 
 		$content, 0, PREG_SPLIT_DELIM_CAPTURE);
 
 	// Now, lets parse the string chunks...
@@ -359,24 +359,29 @@ function evaluate_tmpl($parsed, $variables)
 				
 			$collection = $variables[$parsed[$i]['collection']];
 			$last = count($collection);
-			foreach($collection as $item) {
-				// extending the environment, it works!
-				// Here we extend the environment (variables) and then we call
-				// evaluate_tmpl recursively.  The variables patterns and replace
-				// are recalculated when the routine enters... contrast this with
-				// the data section above...
-				foreach ($item as $key => $val) {
-					$variables[$key] = $val;
-				}
+			if ($collection == null) {
+				$output .= "<!-- ERROR: Collection used in repeat statement is not defined. -->\n";
+			}
+			else {
+				foreach($collection as $item) {
+					// extending the environment, it works!
+					// Here we extend the environment (variables) and then we call
+					// evaluate_tmpl recursively.  The variables patterns and replace
+					// are recalculated when the routine enters... contrast this with
+					// the data section above...
+					foreach ($item as $key => $val) {
+						$variables[$key] = $val;
+					}
 
-				$output .= evaluate_tmpl($parsed[$i]['body'], $variables);
-				// update other variables
-				$variables['loopfirst'] = false;
-				$variables['loopcount']++;
-				$variables['loopeven'] = !$variables['loopeven'];
-				$variables['loopodd'] = !$variables['loopodd'];
-				if ($variables['loopcount'] == $last)
-					$variables['looplast'] = true;
+					$output .= evaluate_tmpl($parsed[$i]['body'], $variables);
+					// update other variables
+					$variables['loopfirst'] = false;
+					$variables['loopcount']++;
+					$variables['loopeven'] = !$variables['loopeven'];
+					$variables['loopodd'] = !$variables['loopodd'];
+					if ($variables['loopcount'] == $last)
+						$variables['looplast'] = true;
+				}
 			}
 		}
 	}

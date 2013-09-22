@@ -1,0 +1,3 @@
+id,person,score
+joe,Joe Smith,100
+mary,Mary James, 101
