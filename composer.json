@@ -9,5 +9,8 @@
         "name": "Manuel A. Perez-Quinones",
         "email": "perez@cs.vt.edu",
         "homepage": "http://perez.cs.vt.edu/"
-    }]
+    }],
+    "autoload": {
+        "files": ["template.php"]
+    }
 }
