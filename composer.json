@@ -1,0 +1,7 @@
+{
+    "name": "mapq/Template",
+    "description": "A template system for separate of HTML and backend logic.",
+    "require": {
+        "php": ">5.0"
+    }
+}

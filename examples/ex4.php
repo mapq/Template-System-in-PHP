@@ -13,6 +13,6 @@ $symbols = array(
 					array('type' => "home", 'number' => "555-9874"),
 					array('type' => "office", 'number' => "231-2646")))
 		));
-
+print_r($symbols);
 echo gen_template("ex4.tmpl", $symbols);
 ?>

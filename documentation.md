@@ -1,6 +1,6 @@
 # Simple Template System in PHP
 **Manuel A. Perez-Quinones, Computer Science, VT, 2013**
-Updated: September 22, 2013
+Updated: September 22, 2013; December 27, 2014
 
 The tiny template is a very simple template language implemented in PHP to be used for small projects and classroom instruction.  The language supports conditionals, repetitions, and calls to functions embedded in HTML.
 
@@ -42,6 +42,16 @@ The if directive, seen below, allows a condition to be expressed. The condition 
 	<% else %>
 		more html
 	<% end %>
+
+### Unless directive
+The unless directive is similar to if but evaluates the condition with a negation.  If the condition evaluates to False, then the text for the "then-block" will be included in the output.  If the variable evaluates to True, then the "else-block" will be included in the output.  Note that just like in the if statement, the else block is optional.
+
+	<% unless {condition} %>
+		html
+	<% else %>
+		more html
+	<% end %>
+
 
 ### Repeat directive
 The repeat directive, as with the if, uses a variable to control the text generation.  In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.
@@ -89,6 +99,7 @@ The repeat statement also supports additional variables that can be used in the 
 
 * {loopfirst} evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop.
 * {looplast} is similar to 'loopfirst' but evaluates to True only on the last iteration through the loop.
+* {loophasmore} evaluates to True on all iterations through the loop except the last one. Logically same as "not looplast".
 
 * {loopcount} contains the index of the loop counter.
 * {loopodd} evaluates to true when 'loopcount' is an odd number.
@@ -117,6 +128,14 @@ The include directive works like other include statements in programming languag
 	<% inlcude ex1.tmpl %>
 
 For now, the include directives do not work when combined with the data directive. That is, you cannot include a file with a data directive.  This will be fixed in a future update (examples ex8b and ex8c do not work correctly.)
+
+### Layout directive
+
+The layout directive turns the template system inside out.  Instead of having a template that includes other files, the layout directive allows the definition of the content of a page that is included in a predefined layout. This command allows the bulk of the layout (e.g., outer layout, headers, footers, etc.) to be defined once and to be generated from the "content" of the page. This makes it easier to change the layout by simply including a different layout.
+
+	<% layout ex1.tmpl %>
+
+More documentation and examples are needed for this feature.  To be completed later.
 
 ### Call directive
 
@@ -334,6 +353,14 @@ Returns false if the template file doesn't exist.
 
 * add <% usedata {file} %>
 	* reads file, determines type, and generates output
+
+* add support for markdown, either as part of data or as separate file
+
+		<% markdown filename %>
+
+* create new functions that allows both file and variables, for example:
+
+		gen_template("template", "inputfile", $variables);
 
 * integrate with Apache via url rewrite, dispatch supports different url syntax
 	/template

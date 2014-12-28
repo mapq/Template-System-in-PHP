@@ -1,0 +1,12 @@
+<example>
+	<csv>
+		<id>joe</id>
+		<person>Joe Smith</person>
+		<score>100</score>
+	</csv>
+	<csv>
+		<id>mary</id>
+		<person>Mary James</person>
+		<score>101</score>
+	</csv>
+</example>

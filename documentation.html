@@ -1,319 +1,432 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>  
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-<style>
-/* lists inside of lists are how I provide comments */
-.comments {
-	background-color: beige;
-	color: maroon;
-	border: 1px solid #ddd;
-}
-img {
-	vertical-align:text-top;
-    float: left; 
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote {
-    margin: 0;
-    padding: 0;
-}
-body {
-    font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", Arial, sans-serif;
-    font-size: 13px;
-    line-height: 18px;
-    color: #000;
-    margin: 10px 13px 10px 13px;
-}
-table {
-	margin: 10px 0 15px 0;
-	border-collapse: collapse;
-}
-td,th {	
-	border: 1px solid #ddd;
-	padding: 3px 10px;
-}
-th {
-	padding: 5px 10px;	
-}
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>documentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+body{-webkit-font-smoothing:antialiased;font-family:"Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;margin:30px 0 0;padding:0;background:#fff}#wrapper{padding:20px}li{font-size:110%}li li{font-size:100%}li p{font-size:100%;margin:.5em 0}h1{color:#000}h2{color:#111}h3{color:#111;margin:0}h4{color:#111}h5{color:#111}h6{font-size:1em;line-height:1.5em;margin:1.5em 0}body,p,td,div{color:#111;font-family:"Helvetica Neue",Helvetica,Arial,Verdana,sans-serif;word-wrap:break-word}a{color:#0d6ea1;text-decoration:none;-webkit-transition:color 0.2s ease-in-out;-moz-transition:color 0.2s ease-in-out;-o-transition:color 0.2s ease-in-out;-ms-transition:color 0.2s ease-in-out;transition:color 0.2s ease-in-out}a:hover{color:#3593d9}body{font-size:15px;line-height:21px;margin:0 auto}h1{font-size:37px;line-height:42px;margin-top:42px;margin-bottom:21px}h2{font-size:27px;line-height:42px;margin-top:42px;margin-bottom:21px}h3{font-size:20px;line-height:21px;margin-top:21px;margin-bottom:21px}h4{font-size:20px;line-height:21px;margin-top:21px;margin-bottom:21px}p,ul,ol,pre,table,blockquote{margin-top:21px;margin-bottom:21px}hr{border:1px solid;margin:-1px 0}ul ul,ol ol,ul ol,ol ul{margin-top:0;margin-bottom:0}b,strong,em,small,code{line-height:1}.footnote{color:#0d6ea1;font-size:.8em;vertical-align:super}#wrapper img{max-width:100%;height:auto}dd{font-size:1em;margin-bottom:1em}li>p:first-child{margin:0}ul ul,ul ol{margin-bottom:.4em}caption,col,colgroup,table,tbody,td,tfoot,th,thead,tr{border-spacing:0}table{border:1px solid rgba(0,0,0,0.25);border-collapse:collapse;display:table;empty-cells:hide;margin:-1px 0 1.3125em;padding:0;table-layout:fixed}caption{display:table-caption;font-weight:700}col{display:table-column}colgroup{display:table-column-group}tbody{display:table-row-group}tfoot{display:table-footer-group}thead{display:table-header-group}td,th{display:table-cell}tr{display:table-row}table th,table td{font-size:1.1em;line-height:1.3;padding:.5em 1em 0}table thead{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-bottom:1px solid rgba(0,0,0,0.2)}table tbody{background:rgba(0,0,0,0.05)}table tfoot{background:rgba(0,0,0,0.15);border:1px solid rgba(0,0,0,0.15);border-top:1px solid rgba(0,0,0,0.2)}figure{display:inline-block;overflow:hidden;position:relative;margin:1em 0 2em}figcaption{font-style:italic;text-align:center;background:white;color:#666}.poetry pre{display:block;font-family:Georgia,Garamond,serif !important;font-size:110% !important;font-style:italic;line-height:1.6em;margin-left:1em}.poetry pre code{font-family:Georgia,Garamond,serif !important;word-break:break-all;word-break:break-word;-webkit-hyphens:auto;-moz-hyphens:auto;hyphens:auto;white-space:pre-wrap}blockquote p{font-size:110%;font-style:italic;line-height:1.6em}sup,sub,a.footnote{font-size:1.4ex;height:0;line-height:1;position:relative;vertical-align:super}sub{vertical-align:sub;top:-1px}p,h5{font-size:1.1429em;line-height:1.3125em;margin:1.3125em 0}dt,th{font-weight:700}table tr:nth-child(odd),table th:nth-child(odd),table td:nth-child(odd){background:rgba(255,255,255,0.06)}table tr:nth-child(even),table td:nth-child(even){background:rgba(200,200,200,0.25)}@media print{body{font-size:13px !important}img,table,figure{page-break-inside:avoid}#wrapper{background:#fff;color:#303030;padding:10px;position:relative;text-indent:0}}@media screen{.inverted{background:#252a2a}.inverted #wrapper{background:#252a2a;color:#eee}.inverted hr{border-color:#333f40 !important}.inverted p,.inverted td,.inverted li,.inverted h1,.inverted h2,.inverted h3,.inverted h4,.inverted h5,.inverted h6,.inverted th,.inverted .math,.inverted caption,.inverted dt,.inverted dd{color:#eee}.inverted pre{background:#ccc}.inverted pre code{color:#111}.inverted table{background:none}.inverted table tr:nth-child(odd),.inverted table td:nth-child(odd){background:none}.inverted a{color:#acd1d5}::selection{background:rgba(157,193,200,0.5)}h1::selection{background-color:rgba(45,156,208,0.3)}h2::selection{background-color:rgba(90,182,224,0.3)}h3::selection,h4::selection,h5::selection,h6::selection,li::selection,ol::selection{background-color:rgba(133,201,232,0.3)}code::selection{background-color:rgba(0,0,0,0.7);color:#eee}code span::selection{background-color:rgba(0,0,0,0.7) !important;color:#eee !important}a::selection{background-color:rgba(255,230,102,0.2)}.inverted a::selection{background-color:rgba(255,230,102,0.6)}td::selection,th::selection,caption::selection{background-color:rgba(180,237,95,0.5)}}
 
-a {
-    color: #0069d6;
+@media print{
+#generated-toc-clone,#generated-toc{display:none!important}
 }
-a:hover {
-    color: #0050a3;
-    text-decoration: none;
-}
-a img {
-    border: none;
-}
-p {
-    margin-bottom: 9px;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    color: #404040;
-    line-height: 36px;
-}
-h1 {
-    margin-bottom: 18px;
-    font-size: 30px;
-}
-h2 {
-    font-size: 24px;
-}
-h3 {
-    font-size: 18px;
-}
-h4 {
-    font-size: 16px;
-}
-h5 {
-    font-size: 14px;
-}
-h6 {
-    font-size: 13px;
-}
-hr {
-    margin: 0 0 19px;
-    border: 0;
-    border-bottom: 1px solid #ccc;
-}
-blockquote {
-    padding: 13px 13px 21px 15px;
-    margin-bottom: 18px;
-    font-family:georgia,serif;
-    font-style: italic;
-}
-blockquote:before {
-    content:"\201C";
-    font-size:40px;
-    margin-left:-10px;
-    font-family:georgia,serif;
-    color:#eee;
-}
-blockquote p {
-    font-size: 14px;
-    font-weight: 300;
-    line-height: 18px;
-    margin-bottom: 0;
-    font-style: italic;
-}
-code, pre {
-    font-family: Monaco, Andale Mono, Courier New, monospace;
-}
-code {
-    background-color: #fee9cc;
-    color: rgba(0, 0, 0, 0.75);
-    padding: 1px 3px;
-    font-size: 12px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-}
-pre {
-    display: block;
-    padding: 14px;
-    margin: 0 0 18px;
-    line-height: 16px;
-    font-size: 11px;
-    border: 1px solid #d9d9d9;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-}
-pre code {
-    background-color: #fff;
-    color:#737373;
-    font-size: 11px;
-    padding: 0;
-}
-@media screen and (min-width: 914px) {
-    body {
-        width: 854px;
-        margin:10px auto;
-    }
-}
-@media print {
-	table, pre {
-		page-break-inside: avoid;
-	}
-}
+#generated-toc-clone li.missing,#mkreplaced-toc li.missing{list-style-type:none!important}#generated-toc-clone li, #mkreplaced-toc li{list-style-type:upper-roman}#generated-toc-clone li li, #mkreplaced-toc li li{list-style-type:decimal}#generated-toc-clone li li li,#mkreplaced-toc li li li{list-style-type:decimal-leading-zero}#generated-toc-clone li li li li,#mkreplaced-toc li li li li{list-style-type:lower-greek}#generated-toc-clone li li li li li,#mkreplaced-toc li li li li li{list-style-type:disc}#generated-toc-clone li li li li li li,#mkreplaced-toc li li li li li li{list-style-type:square}
 </style>
-<title>Simple Template System in PHP</title>
 
 </head>
-<body>
-<h1>Simple Template System in PHP</h1>
+<body class="normal">
+  <div id="wrapper">
+      <h1 id="simpletemplatesysteminphp">Simple Template System in PHP</h1>
 
-<p><strong>Manuel A. Perez-Quinones, Computer Science, VT, 2012</strong></p>
+<p><strong>Manuel A. Perez-Quinones, Computer Science, VT, 2013</strong><br/>
+Updated: September 22, 2013; December 27, 2014</p>
 
-<p>Updated: May 12, 2013</p>
+<p>The tiny template is a very simple template language implemented in PHP to be used for small projects and classroom instruction. The language supports conditionals, repetitions, and calls to functions embedded in HTML.</p>
 
-<p>The tiny template is a very simple template language implemented in PHP to be used for small projects and classroom instruction.  The language supports conditionals, repetitions, and calls to functions embedded in HTML.</p>
+<h2 id="variables">Variables</h2>
 
-<h2>Variables</h2>
+<p>Variables can be placed anywhere in the HTML by using the name of a variable and encapsulating it in curly braces. {name} for example, will replace the value of the name variable for its value. Variable names can be any sequence of a-z, A-Z and 0&#8211;9. It cannot contain spaces nor any other special character.</p>
 
-<p>Variables can be placed anywhere in the HTML by using the name of a variable and encapsulating it in curly braces.  {name} for example, will replace the value of the name variable for its value.</p>
+<h3 id="passingvariables">Passing Variables</h3>
 
-<h2>Passing Variables</h2>
+<p>Variables are passed in an associate array. The index (key) is the name of the variable and the value associated with that key will be used in the substitution. A simple example follows:</p>
 
-<p>Variables are passed in an associate array. The index (key) is the name of the variable and the value associated with that key will be used in the substitution.  A simple example follows:</p>
+<p>Consider an HTML file, ex1.tmpl, that includes the following:</p>
 
-<p>Consider an HTML file,  ex1.tmpl, that includes the following:</p>
-
-<pre><code>&lt;html&gt;
-&lt;body&gt;
-&lt;h1&gt;Welcome&lt;/h1&gt;
-&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;
-&lt;/body&gt;
+<pre><code>&lt;!-- stored in ex1.tmpl --&gt;  
+&lt;html&gt;  
+&lt;body&gt;  
+&lt;h1&gt;Welcome&lt;/h1&gt;  
+&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;  
+&lt;/body&gt;  
 &lt;/html&gt;
 </code></pre>
 
-<p>To use this template, we prepare an array with the following values.</p>
+<p>To use this template, we prepare an array with the variables to be passed to the template. Then we call the <code>generate_template</code> routine as shown below.</p>
 
-<pre><code>$symbols = array('name' =&gt; "Joe");
-</code></pre>
+<pre><code>require_once(&quot;template.php&quot;);
 
-<p>Then we call the generate_template routine as shown below.</p>
+// set the variables  
+$symbols = array('name' =&gt; &quot;Joe&quot;);
 
-<pre><code>require_once("template.php");
-$page = gen_template("ex1.tmpl", $symbols);
+// generate the template  
+$page = gen_template(&quot;ex1.tmpl&quot;, $symbols);  
 echo $page
 </code></pre>
 
-<h2>Directives</h2>
+<h2 id="directives">Directives</h2>
 
-<p>The directives for the template are embedded in &lt;% symbols %> and include if and repeat. The if statement, seen below, allows a condition to be expressed. The condition is a variable passed to the system as shown above.  If that variable evaluates to True, then the text for the "then-block" will be included in the output.  If the variable evaluates to False, then the "else-block" will be included in the output.  Note that the else block is option.</p>
+<p>In addition to variables, the template system supports a group of directives. Directives control how the text is generated by the template system. The directives are embedded in &lt;% symbols %&gt; and include if, repeat, call, data, and include. </p>
 
-<pre><code>&lt;% if {condition} %&gt;
-    html
-&lt;% else %&gt;
-    more html
+<h3 id="ifdirective">If directive</h3>
+
+<p>The if directive, seen below, allows a condition to be expressed. The condition is a variable passed to the system as shown above. If that variable evaluates to True, then the text for the &#8220;then-block&#8221; will be included in the output. If the variable evaluates to False, then the &#8220;else-block&#8221; will be included in the output. Note that the else block is optional.</p>
+
+<pre><code>&lt;% if {condition} %&gt;  
+    html  
+&lt;% else %&gt;  
+    more html  
 &lt;% end %&gt;
 </code></pre>
 
-<p>The repetition directive, shown below, is similar to the if in that it uses a variable to contribute the execution.  In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.</p>
+<h3 id="unlessdirective">Unless directive</h3>
 
-<pre><code>&lt;% repeat {collection} %&gt;
+<p>The unless directive is similar to if but evaluates the condition with a negation. If the condition evaluates to False, then the text for the &#8220;then-block&#8221; will be included in the output. If the variable evaluates to True, then the &#8220;else-block&#8221; will be included in the output. Note that just like in the if statement, the else block is optional.</p>
 
-    html
-
+<pre><code>&lt;% unless {condition} %&gt;  
+    html  
+&lt;% else %&gt;  
+    more html  
 &lt;% end %&gt;
 </code></pre>
 
-<p>Lets consider a more complex example to see how repeat works. Consider an HTML file,  ex2.tmpl, that includes the following:</p>
+<h3 id="repeatdirective">Repeat directive</h3>
 
-<pre><code>&lt;html&gt;
+<p>The repeat directive, as with the if, uses a variable to control the text generation. In this case, however, the variable is a collection of data. The body of the repeat will be included in the ouptput once for each element of the collection.</p>
 
-&lt;body&gt;
-
-&lt;h1&gt;Welcome&lt;/h1&gt;
-
-&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;
-
-&lt;ul&gt;
-
-&lt;% repeat {phones} %&gt;
-
-    &lt;li&gt;my {type} number is {number}&lt;/li&gt;
-
+<pre><code>&lt;% repeat {collection} %&gt;  
+    html  
 &lt;% end %&gt;
-
-&lt;/ul&gt;
-
-&lt;/body&gt;
-
-&lt;/html&gt;
 </code></pre>
 
-<p>Using collections in repeat are a bit tricky.  At the top level of your variables, you want to have the symbol used in the repeat line.  In this example it is {phones}.</p>
+<p>For example, consider the following representation showing a person&#8217;s name, and his phone numbers.</p>
 
-<pre><code>$symbols = array('name' =&gt; "Joe",
-    'phones' =&gt; array( .. ));
-</code></pre>
-
-<p>The content of the collection, should be arrays themselves using the symbols mentioned in the repeated part of the body of the repeat statement. In this example, each element of the 'phones' collection should have 'type' and 'number'.  Then completing the example, we have:</p>
-
-<pre><code>$symbols = array('name' =&gt; "Joe",
-    'phones' =&gt; array(
-        array('type' =&gt; "home", 'number' =&gt; "555-1234"),
-        array('type' =&gt; "cellular", 'number' =&gt; "555-2345")
+<pre><code>$symbols = array('name' =&gt; &quot;Joe&quot;,  
+    'phones' =&gt; array(  
+        array('type' =&gt; &quot;home&quot;, 'number' =&gt; &quot;555-1234&quot;),  
+        array('type' =&gt; &quot;cellular&quot;, 'number' =&gt; &quot;555-2345&quot;)  
         ));
 </code></pre>
 
-<h3>Additional variables</h3>
+<p>Using collections in repeat are a bit tricky. At the top level of your variables, you want to have the symbol used in the repeat line. In this example it is {phones}.</p>
+
+<pre><code>$symbols = array('name' =&gt; &quot;Joe&quot;,  
+    'phones' =&gt; array( .. ));
+</code></pre>
+
+<p>The content of the collection, should be arrays themselves using the symbols mentioned in the repeated part of the body of the repeat statement. In this example, each element of the {phones} collection should have {type} and {number}. Then completing the example, we have:</p>
+
+<pre><code>$symbols = array('name' =&gt; &quot;Joe&quot;,  
+    'phones' =&gt; array(  
+        array('type' =&gt; &quot;home&quot;, 'number' =&gt; &quot;555-1234&quot;),  
+        array('type' =&gt; &quot;cellular&quot;, 'number' =&gt; &quot;555-2345&quot;)  
+        ));
+</code></pre>
+
+<p>The corresponding template shows how to use the repeat directive:</p>
+
+<pre><code>&lt;html&gt;  
+&lt;body&gt;  
+&lt;h1&gt;Welcome&lt;/h1&gt;  
+&lt;p&gt;My name is {name} and this is home page.&lt;/p&gt;  
+&lt;ul&gt;  
+&lt;% repeat {phones} %&gt;  
+    &lt;li&gt;my {type} number is {number}&lt;/li&gt;  
+&lt;% end %&gt;  
+&lt;/ul&gt;  
+&lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
 
 <p>The repeat statement also supports additional variables that can be used in the loop body.</p>
 
 <ul>
-<li><p>'loopfirst' evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop.</p></li>
-<li><p>'looplast' is similar to 'loopfirst' but evaluates to True only on the last iteration through the loop.</p></li>
-<li><p>'loopcount' contains the index of the loop counter</p></li>
-<li><p>'loopodd' evaluates to true when 'loopcount' is an odd number</p></li>
-<li><p>'loopeven' evaluates to true when 'loopcount' is an even number</p></li>
+<li><p>{loopfirst} evaluates to True in the first iteration of the loop. It is false the rest of the time. Perfect to generate output on the first time through the loop. </p></li>
+<li><p>{looplast} is similar to &#8216;loopfirst&#8217; but evaluates to True only on the last iteration through the loop. </p></li>
+<li><p>{loophasmore} evaluates to True on all iterations through the loop except the last one. Logically same as &#8220;not looplast&#8221;.</p></li>
+<li><p>{loopcount} contains the index of the loop counter. </p></li>
+<li><p>{loopodd} evaluates to true when &#8216;loopcount&#8217; is an odd number. </p></li>
+<li><p>{loopeven} evaluates to true when &#8216;loopcount&#8217; is an even number.</p></li>
 </ul>
 
+<p>With these, we could do a more complex text generation using the previous example:</p>
 
-<p>With these, we could do a more complex example as shown below:</p>
-
-<pre><code>&lt;% repeat {phones} %&gt;
-
-    &lt;% if {loopfirst} %&gt;
-
-        &lt;ul&gt;
-
-    &lt;% end %&gt;
-
-    &lt;li&gt;my {type} number is {number}&lt;/li&gt;
-
-    &lt;% if {looplast} %&gt;
-
-        &lt;/ul&gt;
-
-    &lt;% end %&gt;
-
+<pre><code>&lt;% repeat {phones} %&gt;  
+    &lt;% if {loopfirst} %&gt;  
+        &lt;ul&gt;  
+    &lt;% end %&gt;  
+    &lt;% if {loopodd} %&gt;  
+        &lt;li style=&quot;background-color:gray;&quot;&gt;  
+    &lt;% else %&gt;  
+        &lt;li&gt;  
+    &lt;% end %&gt;  
+    my {type} number is {number}&lt;/li&gt;  
+    &lt;% if {looplast} %&gt;  
+        &lt;/ul&gt;  
+    &lt;% end %&gt;  
 &lt;% end %&gt;
 </code></pre>
 
-<h2>Future changes (these have been implemented, better doc coming soon)</h2>
+<h3 id="includedirective">Include directive</h3>
+
+<p>The include directive works like other include statements in programming languages. The &lt;% include filename %&gt; will be replaced with the contents of the &#8216;filename&#8217; after it is expanded with the current set of variables. Note that there are no quotes around the file name. For now, the file name must not include a space. This will be fixed in a future version.</p>
+
+<pre><code>&lt;% inlcude ex1.tmpl %&gt;
+</code></pre>
+
+<p>For now, the include directives do not work when combined with the data directive. That is, you cannot include a file with a data directive. This will be fixed in a future update (examples ex8b and ex8c do not work correctly.)</p>
+
+<h3 id="layoutdirective">Layout directive</h3>
+
+<p>The layout directive turns the template system inside out. Instead of having a template that includes other files, the layout directive allows the definition of the content of a page that is included in a predefined layout. This command allows the bulk of the layout (e.g., outer layout, headers, footers, etc.) to be defined once and to be generated from the &#8220;content&#8221; of the page. This makes it easier to change the layout by simply including a different layout.</p>
+
+<pre><code>&lt;% layout ex1.tmpl %&gt;
+</code></pre>
+
+<p>More documentation and examples are needed for this feature. To be completed later.</p>
+
+<h3 id="calldirective">Call directive</h3>
+
+<p>The call directive allows calling a PHP function from the template expansion. The function must be defined at the time of the expansion and it can be a PHP function or a user defined function. The variables passed to the template expansion are passed back to the function being called. The example below, shows how this works. The return value from the function will be incorporated directly in place of where the call took place.</p>
+
+<p>The example below has the header section of the HTML being generated by the PHP code instead of the template file. The template simply places a call to the <code>pageheader</code> function.</p>
+
+<pre><code>&lt;!-- ex5.tmpl --&gt;  
+&lt;html&gt;  
+&lt;% call pageheader %&gt;  
+&lt;body&gt;  
+&lt;h1&gt;Phones&lt;/h1&gt;  
+&lt;dl&gt;  
+&lt;dt&gt;Name: {name}&lt;/dt&gt;  
+&lt;dd&gt;&lt;% repeat {phones} %&gt;  
+    {type} number is {number}&lt;br&gt;  
+&lt;% end %&gt;&lt;/dd&gt;  
+&lt;/dl&gt;  
+&lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
+
+<p>The PHP code that uses this template is below. Note that the <code>pageheader</code> function is defined to take one argument, the parameters passed to the <code>gen_template</code> function. In this example, the <code>pageheader</code> generates the HTML using a variable that came from the <code>gen_template</code> call (&#8216;pagetitle&#8217;).</p>
+
+<pre><code>require_once(&quot;template.php&quot;);
+
+function pageheader($params)  
+{
+    return &quot;&lt;head&gt;&lt;title&gt;{$params['pagetitle']}&lt;/title&gt;&lt;/head&gt;\n&quot;;  
+}
+
+$symbols = array('name' =&gt; &quot;Joe&quot;,  
+    'phones' =&gt; array(  
+        array('type' =&gt; &quot;home&quot;, 'number' =&gt; &quot;555-1234&quot;),  
+        array('type' =&gt; &quot;cellular&quot;, 'number' =&gt; &quot;555-2345&quot;)  
+        ),  
+    'pagetitle' =&gt; &quot;Hello there&quot;);  
+echo gen_template(&quot;ex5.tmpl&quot;, $symbols);
+</code></pre>
+
+<h3 id="datadirective">Data directive</h3>
+
+<p>The data directive allows for data to be included in the template file directly. This might make it easy to use values that are used multiple times in a single place, like constants in a programming language. Currently the data directive supports three formats, csv, json, and xml. We will be adding yaml soon.</p>
+
+<pre><code>&lt;% data {json | xml | csv} %&gt;  
+_data goes here_  
+&lt;% end %&gt;
+</code></pre>
+
+<p>What follows is a simple example, just to demonstrate how the data directive works.</p>
+
+<h4 id="json">JSON</h4>
+
+<pre><code>&lt;!-- ex7.tmpl --&gt;  
+&lt;% data json %&gt;  
+{
+    &quot;title&quot;:&quot;Ex7&quot;,  
+    &quot;name&quot;:&quot;manuel&quot;,  
+    &quot;looping&quot;: [  
+        {
+            &quot;name&quot;:&quot;var1&quot;,  
+            &quot;value&quot;:10  
+        },  
+        {
+            &quot;name&quot;:&quot;var2&quot;,  
+            &quot;value&quot;:20  
+        }
+    ]  
+}
+&lt;% end %&gt;
+
+&lt;!DOCTYPE html&gt;  
+&lt;html lang=&quot;en&quot;&gt;  
+  &lt;head&gt;  
+    &lt;meta charset=&quot;utf-8&quot;&gt;  
+    &lt;title&gt;{title}&lt;/title&gt;  
+    &lt;meta name=&quot;author&quot; content=&quot;MAPQ&quot;&gt;  
+  &lt;/head&gt;  
+  &lt;body&gt;  
+    &lt;h1&gt;{title}&lt;/h1&gt;  
+    &lt;p&gt;My name is {last}, {name}.&lt;/p&gt;  
+   &lt;ul&gt;  
+        &lt;% repeat {looping} %&gt;  
+         &lt;li&gt;{name} = {value}&lt;/li&gt;  
+        &lt;% end %&gt;  
+   &lt;/ul&gt;  
+  &lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
+
+<p>This example includes data stored in json format in the template file itself. Nevertheless, the file must be generated from PHP. The code below shows the PHP code for this example. Worth noting is the variable {last} which is used in the template but is not included in the json data.</p>
+
+<pre><code>require_once(&quot;template.php&quot;);  
+$symbols = array('last'=&gt;&quot;Perez&quot;);  
+echo gen_template(&quot;ex7.tmpl&quot;, $symbols);
+</code></pre>
+
+<p>This shows that the symbols passed from the PHP code are extended with the data encountered in the data directive. As a result all the symbols are available for the template.</p>
+
+<p>Similar examples are included below in CSV and XML formats.</p>
+
+<h4 id="csv">CSV</h4>
+
+<pre><code>&lt;!-- ex8.tmpl --&gt;  
+&lt;% data csv %&gt;  
+id,person,score  
+joe,Joe Smith,100  
+mary,Mary James, 101  
+&lt;% end %&gt;
+
+&lt;!DOCTYPE html&gt;  
+&lt;html lang=&quot;en&quot;&gt;  
+  &lt;head&gt;  
+    &lt;meta charset=&quot;utf-8&quot;&gt;  
+    &lt;title&gt;Grades&lt;/title&gt;  
+    &lt;meta name=&quot;author&quot; content=&quot;MAPQ&quot;&gt;  
+  &lt;/head&gt;  
+  &lt;body&gt;  
+    &lt;h1&gt;Grades&lt;/h1&gt;  
+    &lt;p&gt;Professor {last}.&lt;/p&gt;  
+   &lt;table&gt;  
+        &lt;% repeat {csv} %&gt;  
+            &lt;% if {loopfirst} %&gt;  
+            &lt;tr&gt;&lt;th&gt;PID&lt;/th&gt;&lt;th&gt;Person&lt;/th&gt;&lt;th&gt;Pts&lt;/th&gt;&lt;/tr&gt;  
+            &lt;% end %&gt;  
+         &lt;tr&gt;&lt;td&gt;{id}&lt;/td&gt;&lt;td&gt;{person}&lt;/td&gt;&lt;td&gt;{score}&lt;/td&gt;&lt;/tr&gt;  
+        &lt;% end %&gt;  
+   &lt;/table&gt;  
+  &lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
+
+<p>The PHP code for this example:</p>
+
+<pre><code>require_once(&quot;template.php&quot;);  
+$symbols = array('last' =&gt; &quot;Perez&quot;);  
+echo gen_template(&quot;ex8.tmpl&quot;, $symbols);
+</code></pre>
+
+<h4 id="xml">XML</h4>
+
+<pre><code>&lt;!-- ex11.tmpl --&gt;  
+&lt;% data xml %&gt;  
+&lt;xml&gt;  
+    &lt;title&gt;Ex7&lt;/title&gt;  
+    &lt;name&gt;manuel&lt;/name&gt;  
+    &lt;last&gt;perez&lt;/last&gt;  
+    &lt;looping&gt;  
+        &lt;name&gt;var1&lt;/name&gt;  
+        &lt;value&gt;10&lt;/value&gt;  
+    &lt;/looping&gt;  
+    &lt;looping&gt;  
+        &lt;name&gt;var2&lt;/name&gt;  
+        &lt;value&gt;20&lt;/value&gt;  
+    &lt;/looping&gt;  
+&lt;/xml&gt;  
+&lt;% end %&gt;
+
+&lt;!DOCTYPE html&gt;  
+&lt;html lang=&quot;en&quot;&gt;  
+  &lt;head&gt;  
+    &lt;meta charset=&quot;utf-8&quot;&gt;  
+    &lt;title&gt;{title}&lt;/title&gt;  
+    &lt;meta name=&quot;author&quot; content=&quot;MAPQ&quot;&gt;  
+  &lt;/head&gt;  
+  &lt;body&gt;  
+    &lt;h1&gt;{title}&lt;/h1&gt;  
+    &lt;p&gt;My name is {last}, {name}.&lt;/p&gt;  
+   &lt;ul&gt;  
+        &lt;% repeat {looping} %&gt;  
+         &lt;li&gt;{name} = {value}&lt;/li&gt;  
+        &lt;% end %&gt;  
+   &lt;/ul&gt;  
+  &lt;/body&gt;  
+&lt;/html&gt;
+</code></pre>
+
+<p>The PHP code for this example is:</p>
+
+<pre><code>require_once(&quot;template.php&quot;);  
+$symbols = array('last' =&gt; &quot;Perez&quot;);  
+echo gen_template(&quot;ex11.tmpl&quot;, $symbols);
+</code></pre>
+
+<h1 id="reference">Reference</h1>
+
+<h2 id="gen_template_from_jsontemplatefilejsonfile">gen_template_from_json($templatefile, $jsonfile)</h2>
+
+<p>Generates a page using the template stored in <code>$templatefile</code> and data, stored in JSON format, in the file indicated by the second argument, <code>$jsonfile</code>.<br/>
+Returns false if either one of the files doesn&#8217;t exist.</p>
+
+<h2 id="gen_template_from_csvtemplatefilecsvfile">gen_template_from_csv($templatefile, $csvfile)</h2>
+
+<p>Generates a page using the template stored in <code>$templatefile</code> and data, stored in csv format, in the file indicated by the second argument, <code>$csvfile</code>. The first line of the csv file will be used for variable names in the loop.<br/>
+Returns false if either one of the files doesn&#8217;t exist.</p>
+
+<h2 id="gen_template_from_xmltemplatefilexmlfile">gen_template_from_xml($templatefile, $xmlfile)</h2>
+
+<p>Generates a page using the template stored in <code>$templatefile</code> and data, stored in XML format, in the file indicated by the second argument, <code>$xmlfile</code>.<br/>
+Returns false if either one of the files doesn&#8217;t exist.</p>
+
+<h2 id="gen_templatepagevariables">gen_template($page, $variables)</h2>
+
+<p>Generates a page using the template stored in <code>$page</code> and the variables stored in the second argument as an associative array.<br/>
+Returns false if the template file doesn&#8217;t exist.</p>
+
+<h1 id="pendingitemsandotherideas">Pending items and other ideas</h1>
 
 <ul>
-<li><p>add calling a function so that it returns HTML directly</p></li>
-<li><p>The template system should support an all-in-one file representation.</p>
-
-<pre><code>  &lt;% data {json | xml | csv} %&gt;
-  _data goes here_
-  &lt;% end %&gt;
-</code></pre></li>
-<li><p>how is the data from statement above mixed with other data?</p></li>
-<li><p>add special case to repeat to support a csv array with the first row having the field names and the individual rows not being in an associative array.</p>
-
-<pre><code>  &lt;% repeat {} %&gt;
-  &lt;% end %&gt;
-</code></pre></li>
-<li><p>add support to template.php to take the file name as both command line argument (argv) and CGI.</p></li>
-</ul>
-
-
-<h3>To be done</h3>
+<li><p>better error checks and reporting of errors through exception throwing </p></li>
+<li><p>add special case to repeat to support a csv array with the first row having the field names and the individual rows not being in an associative array.<br/>
+ &lt;% repeat {} %&gt;<br/>
+ &lt;% end %&gt; </p></li>
+<li>implement &lt;% include {file} %&gt;
 
 <ul>
-<li><p>add support for file inclusion</p></li>
-<li><p>add calling a function so that it returns data that is integrated with the other data.</p></li>
-</ul>
+<li><p>as a way to read in another file, recursive call in parsing the file </p></li>
+<li><p>if file is tmpl - parse and incorporate the resulting tokens in parsed stream </p></li>
+<li><p>if file is html - drop the html as a single text entity </p></li>
+<li><p>if file is md - then process markdown and drop as a single text entity </p></li>
+<li><p>if file is csv - then same as data but external file </p></li>
+<li><p>if file is xml - then same as data but external file</p></li>
+<li><p>a loop of includes will kill the system - should we avoid them?</p></li>
+</ul></li>
+<li><p>add SQL by &#8230; {service:user:password}</p>
 
+<pre><code>&lt;% data {mysql:user:password} %&gt;  
+SELECT * FROM X WHERE `name`='who'  
+&lt;% end %&gt;
+</code></pre></li>
+<li>add &lt;% usedata {file} %&gt;
+
+<ul>
+<li>reads file, determines type, and generates output</li>
+</ul></li>
+<li><p>add support for markdown, either as part of data or as separate file</p>
+
+<pre><code>&lt;% markdown filename %&gt;
+</code></pre></li>
+<li><p>create new functions that allows both file and variables, for example:</p>
+
+<pre><code>gen_template(&quot;template&quot;, &quot;inputfile&quot;, $variables);
+</code></pre></li>
+<li><p>integrate with Apache via url rewrite, dispatch supports different url syntax<br/>
+/template<br/>
+/template/data </p></li>
+<li><p>small dispatch in .htaccess does all the magic, add &#8220;root&#8221; as variable </p></li>
+<li><p>how do we support markdown?</p></li>
+</ul>
 
 <p><em>the end</em></p>
+<!-- ##END MARKED WRAPPER## -->
+    </div>
 </body>
 </html>

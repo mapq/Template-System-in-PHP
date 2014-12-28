@@ -1,0 +1,14 @@
+{
+	"csv": [
+		{
+			"id":"joe",
+			"person":"Joe Smith",
+			"score":"100"
+		},
+		{
+			"id":"mary",
+			"person":"Mary James",
+			"score":"101"
+		}
+	]
+}
