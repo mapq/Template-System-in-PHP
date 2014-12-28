@@ -1,7 +1,12 @@
 {
-    "name": "mapq/Template",
-    "description": "A template system for separate of HTML and backend logic.",
+    "name": "mapq/html-template",
+    "description": "A template system to separate HTML from backend logic. Support in PHP for now.",
     "require": {
         "php": ">5.0"
-    }
+    },
+    "authors": [{
+        "name": "Manuel A. Perez-Quinones",
+        "email": "perez@cs.vt.edu",
+        "homepage": "http://perez.cs.vt.edu/"
+    }]
 }
