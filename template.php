@@ -292,6 +292,11 @@ function evaluate_tmpl($parsed, $variables)
 			// debug_print($patterns);
 			// debug_print($replacements);
 
+			for ($j = 0; $j < count($replace); $j++) {
+				if (is_array($replace[$j]))
+					$replace[$j] = "";
+			}
+
 			// And then do the replacement
 			$results = preg_replace($patterns, $replacements, $temp);
 			if (is_array($results))
