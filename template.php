@@ -292,9 +292,11 @@ function evaluate_tmpl($parsed, $variables)
 			// debug_print($patterns);
 			// debug_print($replacements);
 
-			for ($j = 0; $j < count($replace); $j++) {
-				if (is_array($replace[$j]))
-					$replace[$j] = "";
+			// the next three replacements were replace which is no
+			// defined...
+			for ($j = 0; $j < count($replacements); $j++) {
+				if (is_array($replacements[$j]))
+					$replacements[$j] = "";
 			}
 
 			// And then do the replacement
