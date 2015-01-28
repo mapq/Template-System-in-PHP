@@ -66,19 +66,34 @@ function object2array($object)
 }
 
 // ---------------------------------------------------------------------------
-function gen_template_from_json($page, $json)
+function get_template_vars($tmpl_file)
+{
+
+	if (!file_exists($tmpl_file))
+		return false;
+
+	// Read external file
+	$content = file_get_contents($tmpl_file);
+
+	// Split the file by {variables} blocks
+	preg_match_all("|\{([a-zA-Z0-9\/\.\-\_]+)\}|", $content, $matches);
+	return $matches[1];
+}
+
+// ---------------------------------------------------------------------------
+function gen_template_from_json($tmpl_file, $json)
 {
 	if (file_exists($json)) {
 		$c = file_get_contents($json);
 		$data = json_decode($c, true);
-		return gen_template($page, $data);
+		return gen_template($tmpl_file, $data);
 	}
 	else
 		return false;
 }
 
 // ---------------------------------------------------------------------------
-function gen_template_from_csv($page, $csv)
+function gen_template_from_csv($tmpl_file, $csv)
 {
 	if (file_exists($csv)) {
 		if (($handle = fopen($csv, "r")) !== FALSE) {
@@ -94,7 +109,7 @@ function gen_template_from_csv($page, $csv)
 			}
 			$data['csv'] = $d;
 			fclose($handle);
-			return gen_template($page, $data);
+			return gen_template($tmpl_file, $data);
 		}
 		else
 			return false;
@@ -104,7 +119,7 @@ function gen_template_from_csv($page, $csv)
 }
 
 // ---------------------------------------------------------------------------
-function gen_template_from_xml($page, $xmlfile)
+function gen_template_from_xml($tmpl_file, $xmlfile)
 {
 	if (file_exists($xmlfile)) {
 		$x = file_get_contents($xmlfile);
@@ -115,36 +130,22 @@ function gen_template_from_xml($page, $xmlfile)
 		foreach ($arraydata as $key => $val) {
 			$data[$key] = $val;
 		}
-		return gen_template($page, $data);
+		return gen_template($tmpl_file, $data);
 	}
 	else
 		return false;
 }
 
+
 // ---------------------------------------------------------------------------
-function get_template_vars($page)
+function gen_template($tmpl_file, $variables = array())
 {
 
-	if (!file_exists($page))
+	if (!file_exists($tmpl_file))
 		return false;
 
 	// Read external file
-	$content = file_get_contents($page);
-
-	// Split the file by {variables} blocks
-	preg_match_all("|\{([a-zA-Z0-9\/\.\-\_]+)\}|", $content, $matches);
-	return $matches[1];
-}
-
-// ---------------------------------------------------------------------------
-function gen_template($page, $variables = array())
-{
-
-	if (!file_exists($page))
-		return false;
-
-	// Read external file
-	$content = file_get_contents($page);
+	$content = file_get_contents($tmpl_file);
 	return gen_template_from_memory($content, $variables);
 }
 
