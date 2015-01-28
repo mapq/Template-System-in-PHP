@@ -1,7 +1,7 @@
 <?php
 // ex5.php
 
-require_once("../template.php");
+require_once("vendor/autoload.php");
 
 function pageheader($params)
 {

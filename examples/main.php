@@ -14,7 +14,7 @@
 $ ./main.php example	# will run 
 
 */
-require_once("../template.php");
+require_once("vendor/autoload.php");
 
 function addExtension($filename, $extension)
 {

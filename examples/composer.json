@@ -1,0 +1,9 @@
+{
+	"name": "mapq/template-examples",
+	"description": "Template examples",
+    "license": "proprietary",
+
+    "require": {
+		"mapq/html-template": "1.3.*"
+    }
+}

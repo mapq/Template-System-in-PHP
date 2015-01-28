@@ -2,7 +2,7 @@
 // ex5.php
 // Example using PHP's keys
 // Consider a single dimention array as we had in Ex2.php
-require_once("../template.php");
+require_once("vendor/autoload.php");
 
 function getURL2CSS()
 {

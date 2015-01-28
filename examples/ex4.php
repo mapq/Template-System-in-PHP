@@ -1,7 +1,7 @@
 <?php
 // ex4.php
 // Example showing a nested loop in an html file
-require_once("../template.php");
+require_once("vendor/autoload.php");
 $symbols = array(
 	'people' => array(
 		array('name' => "Joe",

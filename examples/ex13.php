@@ -34,7 +34,7 @@
 </html>
 <?php
 // ex13.php
-require_once("../template.php");
+require_once("vendor/autoload.php");
 $symbols = array('last' => "Perez");
 echo gen_template(__FILE__, $symbols);
 
