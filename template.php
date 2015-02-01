@@ -276,32 +276,37 @@ function evaluate_tmpl($parsed, $variables)
 	for ($i = 0; $i < count($parsed); $i++) {
 		// echo $parsed[$i]['node']."\n";
 		if ($parsed[$i]['node'] == TEXT_STMT) {
-			$temp = $parsed[$i]['content'];
 
 			// turn variables into regular expression patterns
-			// but only if they are simple variables, not arrays
-			//$patterns = array_keys($variables);
+			// but only if their values are simple variables, 
+			// not arrays
 			$patterns = array();
 			$replacements = array();
 			foreach($variables as $key => $value) {
 				if (!is_array($value)) {
 					$patterns[] = "/\{".$key."\}/";
+
+					// If the replacement string contains any references 
+					// of the form \\n or (since PHP 4.0.4) $n, then we
+					// must deal with them here as we don't really want to
+					// do a replacement. So, for every '$' in a replacement
+					// string, we replace it with \$
+					$value = str_replace("$", "\\$", $value);
 					$replacements[] = $value;
 				}
 			}
 
 			// debug_print($patterns);
 			// debug_print($replacements);
-
-			// the next three replacements were replace which is no
-			// defined...
+			// Is this next loop doing anything? It doesn't seems
+			// like it is needed...
 			for ($j = 0; $j < count($replacements); $j++) {
 				if (is_array($replacements[$j]))
 					$replacements[$j] = "";
 			}
 
-			// And then do the replacement
-			$results = preg_replace($patterns, $replacements, $temp);
+			// Then do the replacement...
+			$results = preg_replace($patterns, $replacements, $parsed[$i]['content']);
 			if (is_array($results))
 				foreach($results as $r)
 					$output .= $r;
@@ -329,7 +334,7 @@ function evaluate_tmpl($parsed, $variables)
 				if ($parsed[$i]['else']) {	// if there is an else block
 					$output .= evaluate_tmpl($parsed[$i]['else'], $variables);
 				}
-				// if there is no else but the condition was true,
+				// if there is no 'else' but the condition was true,
 				// do nothing
 			}
 			else {
