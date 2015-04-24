@@ -421,42 +421,49 @@ function evaluate_tmpl($parsed, $variables)
 			$variables['loopodd'] = true;
 			$variables['loopeven'] = !$variables['loopodd'];
 			$variables['loopcount'] = 1;
-				
-			$collection = $variables[$parsed[$i]['collection']];
-			$last = count($collection);
-			$variables['looplast'] = ($last == 1);
-			$variables['loophasmore'] = ($last > 1);
-			if ($collection == null) {
-				$output .= "<!-- ERROR: Collection used in repeat statement is not defined. -->\n";
-			}
-			else {
-				foreach($collection as $item) {
-					// extending the environment, it works!
-					// Here we extend the environment (variables) and then we call
-					// evaluate_tmpl recursively.  The variables patterns and replace
-					// are recalculated when the routine enters... contrast this with
-					// the data section above...
-					$toclear = array();
-					foreach ($item as $key => $val) {
-						$variables[$key] = $val;
-						$toclear[] = $key;
-					}
 
-					$output .= evaluate_tmpl($parsed[$i]['body'], $variables);
+			// if the collection is set, then we process the
+			// repeat... but if it is not, we just ignore it
+			if (isset($variables[$parsed[$i]['collection']])) {
+				$collection = $variables[$parsed[$i]['collection']];
+				if ($collection == null) {
+					$output .= "<!-- ERROR: Collection ({$parsed[$i]['collection']}) used in repeat statement is not defined. -->\n";
+				}
+				else {
+					$last = count($collection);
+					$variables['looplast'] = ($last == 1);
+					$variables['loophasmore'] = ($last > 1);
+					foreach($collection as $item) {
+						// extending the environment, it works!
+						// Here we extend the environment (variables) and then we call
+						// evaluate_tmpl recursively.  The variables patterns and replace
+						// are recalculated when the routine enters... contrast this with
+						// the data section above...
+						$toclear = array();
+						foreach ($item as $key => $val) {
+							$variables[$key] = $val;
+							$toclear[] = $key;
+						}
 
-					// get rid of local variables from inside of the loop
-					foreach($toclear as $key)
-						unset($variables[$key]);
-					// update other variables
-					$variables['loopfirst'] = false;	// not first anymore
-					$variables['loopcount']++;
-					$variables['loopeven'] = !$variables['loopeven'];
-					$variables['loopodd'] = !$variables['loopodd'];
-					if ($variables['loopcount'] >= $last) {
-						$variables['looplast'] = true;
-						$variables['loophasmore'] = false;
+						$output .= evaluate_tmpl($parsed[$i]['body'], $variables);
+
+						// get rid of local variables from inside of the loop
+						foreach($toclear as $key)
+							unset($variables[$key]);
+						// update other variables
+						$variables['loopfirst'] = false;	// not first anymore
+						$variables['loopcount']++;
+						$variables['loopeven'] = !$variables['loopeven'];
+						$variables['loopodd'] = !$variables['loopodd'];
+						if ($variables['loopcount'] >= $last) {
+							$variables['looplast'] = true;
+							$variables['loophasmore'] = false;
+						}
 					}
 				}
+			}
+			else {
+				$output .= "<!-- ERROR: Collection ({$parsed[$i]['collection']}) used in repeat statement was not set. -->\n";
 			}
 		}
 	}
